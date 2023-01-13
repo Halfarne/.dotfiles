@@ -1,0 +1,68 @@
+### Global settings ###
+# Your Spotify cookie. Only needed if you are going to use Spotify as a player.
+cookie: "sp_t=afc92128c095bee5d7748dea8d8016e4; _gcl_au=1.1.2134333350.1672669749; OptanonConsent=isGpcEnabled=0&datestamp=Sun+Jan+08+2023+19%3A37%3A31+GMT%2B0100+(Central+European+Standard+Time)&version=6.26.0&isIABGlobal=false&hosts=&consentId=92b25433-991e-482b-8e98-f63e2e6fe97b&interactionCount=1&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2CSTACK3%3A1%2CSTACK11%3A1%2CSTACK20%3A1%2Cf11%3A0&geolocation=CZ%3B80&AwaitingReconsent=false; OptanonAlertBoxClosed=2023-01-02T14:29:11.837Z; eupubconsent-v2=CPk_SYVPk_SYVAcABBENCyCgAP_AAAAAAAYgGWNBjS-vRwvr-_57brswcY0G0dB9Y-EyhgfFBKABHboUMJ0FwGA5oFXCkKgKCAYgMUJBIEEgCCEUCUEgaoEFDiGAIEiUBLEIICNAEDAAAQBAAAlQFA6gAAAAgbgMCQAAgBKAAFIAAEAAACAQBeAAIABYADwALgAfABkADwAHwAQwAjABJACqAFgALYAYgA5gB6AEIAIYARYAjgBLACaAGGAMgAcQA5wB1QD2APgAfoBAwCDgEXAKWAVeAwgDFAG4APQAi8BHoCRAErAKHAU2AtgBcQDFgkAsACoAGQAQAA0gCIAIoATAAngClAHeARwBeYYAwAAsAC4ARgAkgBPACoAFsAMQAhgBSADIAGqAOIAloBSwCrgGyAOoAi8BIgChwFNgLiAYsIAJgALAAuAEYAJIATwAtgBiAEMAKQAZAA4gCWgFLAKuAi8BIgChwFxAMWFACwAhgBiAEcAKQAaoA4gCWgFLAKuAj0BIIqAGAEwAjgC8xgAoAIYAYgBHACkAHEAS0ApYBVwEegJOGQAwAmAEcAXmOAhAACAAWAA8AC4AH4AYgBkADkAHkAPgBBACGAEYAKoAWAAtgBdAC-AGIAMwAcwA9ACEAEMAI4ASwAmABNQCjAKQAWIAswBhADIAGqAOIAc4A6gB3AD2AH6AQOAg4CEQEWARcAloBNgClwFXAVkAwMBhAGKANeAbgA6gB5AD0AIgARUAi8BHoCQQEiAJWAUOApgBTYCygFsALiAYsOgGAAVAAyACAAGkARABFACYAE8AUoA7wCOALzAZYQANgALABiAEEAIYAVQAvgBiADMAHoARwApABYgDCAGqAOIAc4BS4CrgKzAYQBigDqAHbAPQAj0BIICRAEnALYIQBAAMgBMAHeARwkAeAAEAAsAC4AMQAcgA8gCoAKoAXwAxABmAEIAIYARwApABcgDuAIOAS2Aq4CsgGKANeAbgA6gCKgEXgJEASsAsoBbADFiUAgADIARAAmAClAHeARwBeYDLCgDIAAQACwALgAfgBiAGQAOQAeAA_ACGAEYAKUAVABVACwAF8AMQAZgA5gCEAEMAI6AUYBSACxAFyAMIAcQA5wB1ADuAH6AQcAiwBLQCbAFLgKuArIBdYDCAMUAa8A3AB2wDyAHoAReAj0BIgChwFMAKbAWwAxYpALAAqABkAEAANIAiACKAEwAJ4ApQB3gEcAXm.f_gAAAAAAAAA; _ga_ZWG1NSHWD8=GS1.1.1673202057.4.1.1673203051.0.0.0; _ga=GA1.2.1256149359.1672669752; sp_adid=7852bf38-35d9-4932-9912-e20d15efe1f7; _scid=f7067636-2558-4f92-af82-aa568a78153a; _fbp=fb.1.1672669758041.815776625; sp_dc=AQCc__0QItO_8PoBeG_vkt9yJMA8rqMUTCdGxGl8s7q6gb54Ha5CQfou9IVH1Chuu4yi6G22xipNrzhOZSgksMyBnnpqt6JQNDI55pk3pcOPu6SO6QkdFwWTRBmE6zuPoFQUq2jY80hNyStjir5gmK9pPUcbOfPE; sp_key=eb504d0c-59f7-45a6-a79e-fb00339992ec; sp_m=cz; sp_last_utm=%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D; sp_gaid=0088fcb4554bb11faa8396f59d7f7b806b45052165dd5ca55b68ec; _ga_S35RN5WNT2=GS1.1.1672674738.2.0.1672674748.50.0.0; _cs_c=0; _cs_id=9e3fd5a7-f55e-a016-f7a2-eda21ceefbc5.1672670206.2.1672674738.1672674738.1.1706834206462; sp_landing=https%3A%2F%2Fopen.spotify.com%2F%3Fsp_cid%3Dafc92128c095bee5d7748dea8d8016e4%26device%3Ddesktop; _gid=GA1.2.995825666.1673202058; sss=1; _gat_UA-5784146-31=1"
+# Player that will be used. Possible values: spotify, mpd, mopidy, mpris.
+player: spotify
+# Interval of the internal timer. Determines how often the terminal will be updated.
+timerInterval: 200
+# Interval for checking the position. Doesn't really affect the precision.
+updateInterval: 2000
+
+### Style settings ###
+style:
+  # Horizontal alignment of lines. Possible values: left, center, right.
+  hAlignment: center
+  # Style of the lines before the current one.
+  before:
+    # The colors can be either in HEX format, or ANSI 0-255.
+    background: ""
+    foreground: ""
+    bold: true
+    italic: false
+    undeline: false
+    strikethrough: false
+    blink: false
+    faint: false
+  # Style of the current line.
+  current:
+    # The colors can be either in HEX format, or ANSI 0-255.
+    background: ""
+    foreground: ""
+    bold: true
+    italic: false
+    undeline: false
+    strikethrough: false
+    blink: false
+    faint: false
+  # Style of the lines after the current one.
+  after:
+    # The colors can be either in HEX format, or ANSI 0-255.
+    background: ""
+    foreground: ""
+    bold: false
+    italic: false
+    undeline: false
+    strikethrough: false
+    blink: false
+    faint: true
+
+### Pipe settings ###
+pipe:
+  # Maximum line length. 0 - unlimited.
+  length: 0
+  # How to handle overflowing strings. Possible values: word, none, ellipsis.
+  overflow: word
+  # Whether to ignore errors instead of printing to stdout.
+  ignoreErrors: true
+
+### MPD settings ###
+mpd:
+  # MPD server address with port
+  address: 127.0.0.1:6600
+  # MPD server password (if any)
+  password: ""
+
+### Mopidy settings ###
+mopidy:
+  # Mopidy server address with port
+  address: 127.0.0.1:6680

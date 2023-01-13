@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+mt="Super"
+
+echo "$mt + H - rofi - okno pomoc"
+echo "$mt + S - rofi -  menu pro vypnutí"
+echo "$mt + space - rofi"
+
+echo "$mt + F - firefox"
+echo "$mt + A - kitty(terminál)"
+
+echo "$mt + K - hyprland - zavřít okno"
+echo "$mt + Alt + Q - hyprland - zavřít Hyprland"
+echo "$mt + q/w/e/r/t - hyprland - virtuální okna 1-5"
+echo "$mt + L - hyprland - Fullscreen"
+echo "$mt + V - hyprland - 'Plovoucí' okno"
+echo "$mt + kolečko na myši - hyprland - změna aktivních oken nahoru/dolů"
+echo "$mt + Pavé tlačítko na myši - hyprland - Změna umístění okna"
+echo "$mt + Levé tlačítko na myši - hyprland - Změna velikosti okna (u plovoucích oken)"
+
+echo "boční tlačítka - hyprland/pulseaudio - hlasitost nahoru/dolů"
+
+echo ":q / ctrl+c -> q - ranger - exit"
+echo "z -> h - ranger - ukízka skrytých souborů"
+echo "space - ranger - označí soubor"
+echo "! - ranger - terminál"
+echo "g - ranger - navigace"
+
+echo "rn - terminál - mv (přejmenování)"
+echo "pxt - terminál - pulsar"
+echo "nxt - terminál - nano"
+echo "please - terminál - doas(sudo)"
