@@ -1,0 +1,28 @@
+cargo:
+	spotify-tui
+	spotifyd
+aur:
+	cava
+	(discordo-git)
+	dxvk-bin
+	hyprland-nvidia-git
+	hyprpaper-git
+	minecraft-launcher
+	nerd-fonts-mononoki
+	nvidia-vaapi-driver-git
+	onlyoffice-bin
+	pulsar-bin
+	rofi-lbonn-wayland-git
+	sptlrx-bin
+	tty-clock-git
+pacman:
+	nvidia-open-dkms
+	nvidia-utils
+	wine
+	xorg-xwayland
+	dhcpd
+	lutis
+	steam
+	firefox
+	discord
+	java-...
