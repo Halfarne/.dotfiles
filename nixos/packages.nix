@@ -6,13 +6,14 @@
 environment.systemPackages = with pkgs; [ 
 
      tremor
-
+    
+     gh
      git
      gcc
-#     rustc
-#     cargo
-#     jde
-#     jre
+     rustc
+     cargo
+     jde
+     jre
 
      ranger
      btop
@@ -21,16 +22,16 @@ environment.systemPackages = with pkgs; [
      wget
 
      lutris
-#     steam
-#     dxvk
-#     wineWowPackages.stable
-#     winetricks
+     steam
+     dxvk
+     wineWowPackages.stable
+     winetricks
 
      nvidia-vaapi-driver
      libva
      libinput
 
-#     discord
+     discord
      rofi-wayland
      firefox-wayland
      xfce.thunar
