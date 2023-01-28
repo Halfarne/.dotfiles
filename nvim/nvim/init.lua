@@ -477,5 +477,17 @@ require("nvim-tree").setup({
   },
 })
 
+local opts = { noremap = true, silent = true }
+
+local term_opts = { silent = true }
+
+-- Shorten function name
+local keymap = vim.api.nvim_set_keymap
+
+keymap("n", "r", ":NvimTreeToggle <CR>", opts)
+keymap("n", "t", ":tabnew term://bash <CR>", opts)
+keymap("n", "<leader>t", ":tabclose <CR>", opts)
+
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

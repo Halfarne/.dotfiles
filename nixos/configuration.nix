@@ -69,6 +69,16 @@
     packages = with pkgs; [];
   };
 
+  # Doas
+  # Enable doas instead of sudo
+  security.doas.enable = true;
+  security.sudo.enable = false;
+  # Configure doas
+  security.doas.extraRules = [{
+        users = [ "halfarne" ];
+        keepEnv = true;
+  }];
+
 
   # SSID
   # programs.mtr.enable = true;
