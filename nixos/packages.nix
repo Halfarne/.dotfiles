@@ -52,6 +52,9 @@ environment.systemPackages = with pkgs; [
      pavucontrol
  
      blueman
+
+     spotifyd
+     spotify-tui
  ];
 
  # Fonts
@@ -60,7 +63,10 @@ environment.systemPackages = with pkgs; [
  ];
 
  # Blueman
- services.blueman.enable = true; 
+ services.blueman.enable = true;
+
+ # Spotifyd
+ services.spotifyd.enable = true;
 
  xdg.portal.enable = true;
 # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
@@ -69,7 +75,7 @@ environment.systemPackages = with pkgs; [
  nixpkgs.config.allowUnfree = true;
 
  # Java
- #programs.java.enable = true;
+ programs.java.enable = true;
 
  # Steam
  programs.steam = {
@@ -81,6 +87,18 @@ environment.systemPackages = with pkgs; [
 
  # Starship
  programs.starship.enable = true;
+ programs.starship.settings = {
+ add_newline = false;
+    format = "$directory$character";
+    directory = {
+      read_only = " ";
+      truncation_length = 0;
+    };
+    character = {
+      success_symbol = "[->](red bold)";
+      error_symbol = "[->](red bold)";
+    };
+ };
 
 
 }
