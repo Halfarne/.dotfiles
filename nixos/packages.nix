@@ -10,7 +10,7 @@ environment.systemPackages = with pkgs; [
      gcc
      rustc
      cargo
-     jde
+     jdk
      jre
 
      ranger
@@ -19,6 +19,7 @@ environment.systemPackages = with pkgs; [
      tty-clock
      wget
      vlc
+     kitty
 
      lutris
      steam
@@ -30,6 +31,8 @@ environment.systemPackages = with pkgs; [
      libva
      libinput
 
+     hyprpaper
+
      discord
      rofi-wayland
      firefox-wayland
@@ -37,7 +40,6 @@ environment.systemPackages = with pkgs; [
      tor-browser-bundle-bin
 
      monocraft
-     (nerdfonts.override { fonts = [ "Mononoki" ]; })
 
      neovim
 #     micro
@@ -50,7 +52,12 @@ environment.systemPackages = with pkgs; [
      pavucontrol
  
      blueman
-];
+ ];
+
+ # Fonts
+ fonts.fonts = with pkgs; [
+  (nerdfonts.override { fonts = [ "Mononoki" ]; })
+ ];
 
  # Blueman
  services.blueman.enable = true; 
@@ -63,6 +70,14 @@ environment.systemPackages = with pkgs; [
 
  # Java
  #programs.java.enable = true;
+
+ # Steam
+ programs.steam = {
+  enable = true;
+  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+ };
+
 
  # Starship
  programs.starship.enable = true;

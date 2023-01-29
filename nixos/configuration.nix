@@ -10,7 +10,7 @@
       ./pipewire.nix
     ];
 
-  # GRUB
+  # boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
@@ -22,8 +22,24 @@
 
   hardware.nvidia.modesetting.enable = true;
   programs.xwayland.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.displayManager.gdm.nvidiaWayland = true;
+
+  # Disks
+  #ntfs
+  boot.supportedFilesystems = [ "ntfs" ];
+  fileSystems."/mnt/500G-ssd" =
+    { device = "/dev/sdb2";
+      fsType = "ntfs3"; 
+      options = [ "rw" "uid=1000" "gid=100" "umask=0022" "fmask=0022" ];
+    };
+
+  #ext3
+  fileSystems."/mnt/1TB-hdd" =
+    { device = "/dev/sdc1";
+      fsType = "auto"; 
+      options = ["defaults" "rw" ];
+    };
+  
+  
 
 
 
