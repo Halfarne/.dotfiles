@@ -4,8 +4,6 @@
 
 # Packages
 environment.systemPackages = with pkgs; [ 
-
-     tremor
     
      gh
      git
@@ -20,6 +18,7 @@ environment.systemPackages = with pkgs; [
      starship
      tty-clock
      wget
+     vlc
 
      lutris
      steam
@@ -34,7 +33,8 @@ environment.systemPackages = with pkgs; [
      discord
      rofi-wayland
      firefox-wayland
-     xfce.thunar
+#     xfce.thunar
+     tor-browser-bundle-bin
 
      monocraft
      (nerdfonts.override { fonts = [ "Mononoki" ]; })
