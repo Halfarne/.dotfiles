@@ -556,57 +556,57 @@ cursor_text_color background
 
 url_color #1a9ba6
 
-active_border_color #6ecd38
-inactive_border_color #3e3424
-bell_border_color #f1925b
+active_border_color #81a559
+inactive_border_color #3f3a30
+bell_border_color #f2ab71
 
-active_tab_foreground #dedcbe
-active_tab_background #1e1205
+active_tab_foreground #deddc0
+active_tab_background #1f1913
 
-inactive_tab_foreground #bebb9f
-inactive_tab_background #3e3424
+inactive_tab_foreground #bebda3
+inactive_tab_background #3f3a30
 
-foreground #dedcbe
-background #1e1205
+foreground #deddc0
+#: background #1f1913
 
-selection_foreground #1e1205
+selection_foreground #1f1913
 selection_background #1a9ba6
 
-color0 #5e5543
-color8 #7e7762
+color0 #5f5a4d
+color8 #7f7b6a
 
-color1 #fe192c
-color9 #FE474F
+color1 #ff4050
+color9 #FF666C
 
-color2 #6ecd38
-color10 #8BD759
+color2 #81a559
+color10 #9AB773
 
-color3 #ffcb52
-color11 #FFD56E
+color3 #ffcf86
+color11 #FFD897
 
 color4 #1a9ba6
 color12 #48AFB1
 
-color5 #ff223d
-color13 #FF4E5D
+color5 #8e5252
+color13 #A4746E
 
 color6 #208490
 color14 #4C9C9F
 
-color7 #dedcbe
+color7 #deddc0
 color15 #fefedd
 
-mark1_foreground #1e1205
+mark1_foreground #1f1913
 mark1_background #208490
 
-mark2_foreground #1e1205
-mark2_background #ff223d
+mark2_foreground #1f1913
+mark2_background #8e5252
 
-mark3_foreground #1e1205
-mark3_background #ffcb52
+mark3_foreground #1f1913
+mark3_background #ffcf86
 
 #: foreground #dddddd
-#background #171511
+background #171511
 
 #: The foreground and background colors
 
