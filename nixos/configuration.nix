@@ -8,6 +8,7 @@
       ./packages.nix
       ./services.nix
       ./pipewire.nix
+      ./envir.nix
     ];
 
   # boot
@@ -34,20 +35,23 @@
 
   #ext3
   fileSystems."/mnt/1TB-hdd" =
-    { device = "/dev/sdc1";
+    { device = "/dev/sda1";
       fsType = "auto"; 
       options = ["defaults" "rw" ];
     };
   
-  
 
-
-
-  # Automatic Garbage Collection
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
+  # Nix configuration
+  nix = {
+    autoOptimiseStore = true;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   # Overlay Packages

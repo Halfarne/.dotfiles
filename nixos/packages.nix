@@ -8,6 +8,11 @@ environment.systemPackages = with pkgs; [
      gh
      git
      gcc
+
+     ncurses
+
+     python3
+
      rustc
      cargo
      jdk
@@ -17,6 +22,7 @@ environment.systemPackages = with pkgs; [
      btop
      starship
      tty-clock
+     neofetch
      wget
      vlc
      kitty
@@ -50,6 +56,7 @@ environment.systemPackages = with pkgs; [
      pipewire
      wireplumber
      pavucontrol
+     pamixer
  
      blueman
 
