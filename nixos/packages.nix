@@ -62,6 +62,9 @@ environment.systemPackages = with pkgs; [
 
      spotifyd
      spotify-tui
+
+     papirus-icon-theme
+     bibata-cursors
  ];
 
  # Fonts
@@ -106,6 +109,5 @@ environment.systemPackages = with pkgs; [
       error_symbol = "[->](red bold)";
     };
  };
-
 
 }
