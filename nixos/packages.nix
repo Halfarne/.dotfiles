@@ -24,7 +24,7 @@ environment.systemPackages = with pkgs; [
      tty-clock
      neofetch
      wget
-     vlc
+#     vlc
      kitty
 
      lutris
@@ -74,9 +74,6 @@ environment.systemPackages = with pkgs; [
 
  # Blueman
  services.blueman.enable = true;
-
- # Spotifyd
- services.spotifyd.enable = true;
 
  xdg.portal.enable = true;
 # xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

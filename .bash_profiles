@@ -2,10 +2,9 @@
 # ~/.bash_profile
 #
 
-#starts hyprland at log into tty1
-
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 if [[ "$(tty)" == "/dev/tty1" ]]
  then
   ./.hyprinitrc
 fi
+spotifyd
