@@ -230,9 +230,25 @@
    alsa.enable = true;
    alsa.support32Bit = true;
    pulse.enable = true;
-   # If you want to use JACK applications, uncomment this
-   #jack.enable = true;
   };
+
+  # Spotifyd
+  services.spotiyfd.enable = true;
+  services.spotifyd.settings = {
+  global = {
+    username = "nothing to";
+    password = "see here";
+    backend = "pulseaudio";
+    device_name = "moje_reproduktory";
+    bitrate = 160;
+    no_audio_cache = true;
+    initial_volume = "100";
+    normalisation_pregain = -10;
+    autoplay = true;
+    device_type = "computer";
+    }
+  }
+  
 
   ##################################### Enviroment Variables ######################################
   #################################################################################################
