@@ -4,7 +4,7 @@
   imports =
     [
       # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      #./hardware-configuration.nix #(in /etc/nixos/configuration.nix)
     ];
 
   # Boot
@@ -20,20 +20,25 @@
   hardware.nvidia.modesetting.enable = true;
   programs.xwayland.enable = true;
 
+  ############################### Linux Zen kernel #################################
+  ##################################################################################
+
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   #################################### Disks #######################################
   ##################################################################################
 
   #ntfs
   boot.supportedFilesystems = [ "ntfs" ];
   fileSystems."/mnt/500G-ssd" =
-    { device = "/dev/sdb2";
+    { device = "/dev/disk/by-uuid/57A11A4670A755AC";
       fsType = "ntfs3"; 
       options = [ "rw" "uid=1000" "gid=100" "umask=0022" "fmask=0022" ];
     };
 
   #ext3
   fileSystems."/mnt/1TB-hdd" =
-    { device = "/dev/sda1";
+    { device = "/dev/disk/by-uuid/29788cf6-33b0-45a7-8ee0-a5368cb4e723";
       fsType = "auto"; 
       options = ["defaults" "rw" ];
     };
@@ -66,7 +71,7 @@
    users.users.halfarne = {
     isNormalUser = true;
     description = "halfarne";
-    extraGroups = [ "networkmanager" "wheel" "audio" "disk" "video"];
+    extraGroups = [ "networkmanager" "wheel" "audio" "disk" "video" "input"];
     packages = with pkgs; [];
   };
 
@@ -74,12 +79,13 @@
   # Enable doas instead of sudo
   security.doas.enable = true;
   security.sudo.enable = false;
-  # Configure doas
-  security.doas.extraRules = [{
-        users = [ "halfarne" ];
-        keepEnv = true;
-	persist = true;
-  }];
+
+     # Configure doas
+     security.doas.extraRules = [{
+           users = [ "halfarne" ];
+           keepEnv = true;
+  	   persist = true;
+     }];
 
 
   # SSID
@@ -114,6 +120,8 @@
      gh
      git
      gcc
+
+     seatd
 
      ncurses
 
@@ -188,8 +196,8 @@
   # Steam
   programs.steam = {
   enable = true;
-  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  remotePlay.openFirewall = true;
+  dedicatedServer.openFirewall = true;
   };
 
 
@@ -234,17 +242,17 @@
   };
 
   # Spotifyd
-  services.spotiyfd.enable = true;
+  services.spotifyd.enable = true;
   services.spotifyd.settings = {
   global = {
-    username = "nothing to";
-    password = " see here ";
-    backend = "pulseaudio";
+    username = " Nothing to ";
+    password = "  See Here  ";
+    backend = "alsa";
     device_name = "moje_reproduktory";
-    bitrate = 160;
-    no_audio_cache = true;
+    #bitrate = 160;
+    #no_audio_cache = true;
     initial_volume = "100";
-    normalisation_pregain = -10;
+    #normalisation_pregain = -10;
     autoplay = true;
     device_type = "computer";
     };
