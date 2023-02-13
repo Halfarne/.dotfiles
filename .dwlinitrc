@@ -24,4 +24,4 @@ export NVD_BACKEND=egl
 
 export STARSHIP_CONFIG=~/.config/starship.toml
 
-exec ~/dwl/result/bin/dwl -s ~/.config/plocha/plocha.sh -s dunst -s gsettings set org.gnome.desktop.interface gtk-theme 'Everforest-Dark-B' -s gsettings set org.gnome.desktop.interface icon-theme 'ePapirus' -s gsettings set org.gnome.desktop.interface font-name 'mononoki Nerd Font 11'
+exec ~/dwl/result/bin/dwl -s ~/.config/autostart.sh 
