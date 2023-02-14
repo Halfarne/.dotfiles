@@ -1,10 +1,12 @@
-~/.config/plocha/plocha.sh &&
+#!/usr/bin/env bash
 
-dunst && 
+exec ~/.config/plocha/plocha.sh &&
 
-"gsettings set org.gnome.desktop.interface gtk-theme 'Everforest-Dark-B'" &
-"gsettings set org.gnome.desktop.interface icon-theme 'ePapirus'" &
-"gsettings set org.gnome.desktop.interface font-name 'mononoki Nerd Font 11'" &&
+exec dunst && 
 
-wal --theme .config/pywaltheme-new.json
+exec "gsettings set org.gnome.desktop.interface gtk-theme 'Everforest-Dark-B'" &
+exec "gsettings set org.gnome.desktop.interface icon-theme 'ePapirus'" &
+exec "gsettings set org.gnome.desktop.interface font-name 'mononoki Nerd Font 11'" &&
+
+#exec "wal -t --theme .config/pywaltheme-new.json"
 #wal -R
