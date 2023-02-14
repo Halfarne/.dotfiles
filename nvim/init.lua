@@ -1,3 +1,6 @@
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -26,6 +29,8 @@ require('packer').startup(function(use)
     },
   }
 
+  use { 'AlphaTechnolog/pywal.nvim', as = 'pywal' }
+
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
@@ -41,6 +46,14 @@ require('packer').startup(function(use)
   use { -- Additional text objects via treesitter
     'nvim-treesitter/nvim-treesitter-textobjects',
     after = 'nvim-treesitter',
+  }
+
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+    'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
 
   -- Git related plugins
@@ -384,9 +397,12 @@ mason_lspconfig.setup_handlers {
 --*vim.cmd([[autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold]])
 --vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg=0, bg=LightGrey })
 --vim.api.nvim_set_hl(0, "Normal", { ctermfg=White,  ctermbg=Black })
-vim.opt.termguicolors = true
-vim.cmd("colorscheme mytheme")
+--vim.opt.termguicolors = true
+--vim.cmd("colorscheme mytheme")
+--
+local pywal = require('pywal')
 
+pywal.setup()
 
 -- Turn on lsp status information
 require('fidget').setup()
@@ -433,6 +449,24 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    width = 30,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
