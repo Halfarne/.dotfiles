@@ -22,6 +22,4 @@ export NVD_LOG=1
 export NVD_MAX_INSTANCES=10
 export NVD_BACKEND=egl
 
-export STARSHIP_CONFIG=~/.config/starship.toml
-
 exec ~/dwl/result/bin/dwl -s ~/.config/autostart.sh  

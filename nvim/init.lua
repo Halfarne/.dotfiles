@@ -397,12 +397,11 @@ mason_lspconfig.setup_handlers {
 --*vim.cmd([[autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold]])
 --vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg=0, bg=LightGrey })
 --vim.api.nvim_set_hl(0, "Normal", { ctermfg=White,  ctermbg=Black })
---vim.opt.termguicolors = true
---vim.cmd("colorscheme mytheme")
---
-local pywal = require('pywal')
+vim.opt.termguicolors = true
+vim.cmd("colorscheme mytheme")
 
-pywal.setup()
+--local pywal = require('pywal')
+--pywal.setup()
 
 -- Turn on lsp status information
 require('fidget').setup()
