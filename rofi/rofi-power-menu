@@ -21,12 +21,12 @@ show=("${m[@]}")
 
 declare -A texts
 texts[lockscreen]="lock screen"
-texts[switchuser]="switch user"
-texts[logout]="log out"
+texts[switchuser]="Přepnout uživatele"
+texts[logout]="Odhlášení"
 texts[suspend]="suspend"
-texts[hibernate]="hibernate"
-texts[reboot]="reboot"
-texts[shutdown]="shut down"
+texts[hibernate]="Hibernace"
+texts[reboot]="Restart"
+texts[shutdown]="Vypnout"
 
 declare -A icons
 icons[lockscreen]="\uf023"
@@ -175,9 +175,9 @@ do
 done
 for entry in "${all[@]}"
 do
-    confirmationMessages[$entry]=$(write_message "${icons[$entry]}" "Yes, ${texts[$entry]}")
+    confirmationMessages[$entry]=$(write_message "${icons[$entry]}" "Ano, ${texts[$entry]}")
 done
-confirmationMessages[cancel]=$(write_message "${icons[cancel]}" "No, cancel")
+confirmationMessages[cancel]=$(write_message "${icons[cancel]}" "Ne, zrušit")
 
 if [ $# -gt 0 ]
 then
@@ -214,7 +214,7 @@ else
                 if [ "$entry" = "$confirmation" ]
                 then
                     # Ask for confirmation
-                    echo -e "\0prompt\x1fAre you sure"
+                    echo -e "\0prompt\x1fJsi si jistý?"
                     echo -e "${confirmationMessages[$entry]}\0icon\x1f${icons[$entry]}"
                     echo -e "${confirmationMessages[cancel]}\0icon\x1f${icons[cancel]}"
                     exit 0
