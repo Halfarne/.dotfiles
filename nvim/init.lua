@@ -100,7 +100,7 @@ vim.cmd("colorscheme mytheme")
 ---------------------------------------------------LUALINE-
 
 require('lualine').setup {
-  options = {
+  ortions = {
     icons_enabled = false,
     theme = 'gruvbox_dark',
     component_separators = '|',
@@ -200,11 +200,55 @@ require("nvim-tree").setup({
     },
   },
   renderer = {
-    group_empty = true,
+    special_files = {},
+    icons = {
+      show = {
+        folder_arrow = true,
+      },
+      glyphs = {
+        default = "",
+        --default = "",
+        symlink = "",
+        folder = {
+          default = "",
+          empty = "",
+          empty_open = "",
+          open = "",
+          symlink = "",
+          symlink_open = "",
+          arrow_open = "",
+          arrow_closed = "",
+        },
+        git = {
+          unstaged = "✗",
+          staged = "✓",
+          unmerged = "",
+          renamed = "➜",
+          untracked = "★",
+          deleted = "",
+          ignored = "◌",
+        },
+      },
+    },
   },
   filters = {
     dotfiles = true,
   },
+})
+
+local function open_nvim_tree()
+
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+      vim.cmd "quit"
+    end
+  end
 })
 
 ----------------------------------------------------KEYMAPS-
