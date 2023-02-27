@@ -11,6 +11,7 @@
 alias ls='ls --color=auto'
 alias please='doas'
 alias c='clear && nitch'
+alias ipv6="ip -6 addr show scope global | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'"
 
 #PS1='[\u@\h \W]\$ '
 eval "$(starship init bash)"
