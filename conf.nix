@@ -242,21 +242,21 @@
   };
 
   # Spotifyd
-  services.spotifyd.enable = true;
-  services.spotifyd.settings = {
-  global = {
-    username = " Nothing to ";
-    password = "  See Here  ";
-    backend = "alsa";
-    device_name = "moje_reproduktory";
-    #bitrate = 160;
-    #no_audio_cache = true;
-    initial_volume = "100";
-    #normalisation_pregain = -10;
-    autoplay = true;
-    device_type = "computer";
-    };
-  };
+  #services.spotifyd.enable = true;
+  #services.spotifyd.settings = {
+  #global = {
+  #  username = " Nothing to ";
+  #  password = "  See Here  ";
+  #  backend = "alsa";
+  #  device_name = "moje_reproduktory";
+  #  #bitrate = 160;
+  #  #no_audio_cache = true;
+  #  initial_volume = "100";
+  #  #normalisation_pregain = -10;
+  #  autoplay = true;
+  #  device_type = "computer";
+  #  };
+  #};
 
 
   # This value determines the NixOS release from which the default
