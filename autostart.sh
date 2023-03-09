@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-exec ~/.config/plocha/plocha.sh &&
+exec ~/.config/plocha.sh &&
 
 exec dunst && 
 
