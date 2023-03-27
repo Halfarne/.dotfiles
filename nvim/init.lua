@@ -34,7 +34,6 @@ require('packer').startup(function(use)
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
-
   -- Other Plugins
   use {
     'nvim-tree/nvim-tree.lua',
@@ -42,6 +41,13 @@ require('packer').startup(function(use)
     'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  }
+  use {
+  "projekt0n/circles.nvim",
+  requires = {"nvim-tree/nvim-web-devicons"},
+  config = function()
+    require("circles").setup()
+  end
   }
   use {
     'goolord/alpha-nvim',
@@ -189,6 +195,10 @@ require('nvim-treesitter.configs').setup {
 
 ---------------------------------------------------NVIM-TREE-
 
+local circles = require('circles')
+
+circles.setup({ icons = { empty = '', filled = '', lsp_prefix = '' } })
+
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -202,33 +212,7 @@ require("nvim-tree").setup({
   renderer = {
     special_files = {},
     icons = {
-      show = {
-        folder_arrow = true,
-      },
-      glyphs = {
-        default = "",
-        --default = "",
-        symlink = "",
-        folder = {
-          default = "",
-          empty = "",
-          empty_open = "",
-          open = "",
-          symlink = "",
-          symlink_open = "",
-          arrow_open = "",
-          arrow_closed = "",
-        },
-        git = {
-          unstaged = "✗",
-          staged = "✓",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "★",
-          deleted = "",
-          ignored = "◌",
-        },
-      },
+      glyphs = circles.get_nvimtree_glyphs(),
     },
   },
   filters = {
@@ -266,6 +250,5 @@ end
   map("n", "b", ":tabnew term://bash<CR>", { silent = true })
   map("n", "c", ":tabclose<CR>", { silent = true })
   map("t", ",c", "exit<CR>", { silent = true })
-
-
+  map('v', '<C-C>', "<cmd>:aunmenu PopUp.copy<CR>")
 

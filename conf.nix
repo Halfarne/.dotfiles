@@ -71,7 +71,7 @@
    users.users.halfarne = {
     isNormalUser = true;
     description = "halfarne";
-    extraGroups = [ "networkmanager" "wheel" "audio" "disk" "video" "input"];
+    extraGroups = [ "networkmanager" "wheel" "audio" "disk" "video" "input" "dialout"];
     packages = with pkgs; [];
   };
 
@@ -115,24 +115,26 @@
   ##################################### Packages ######################################
   #####################################################################################
 
-  environment.systemPackages = with pkgs; [ 
+  environment.systemPackages = with pkgs; [
+
+#     nix-index
+#     fzf
+#     libGLU
     
      gh
      git
      gcc
 
-     seatd
-
      ncurses
 
      python3
 
-     rustc
-     cargo
+#     rustc
+#     cargo
      jdk
      jre
 
-     ranger
+#     ranger
      btop
      starship
      tty-clock
@@ -152,10 +154,10 @@
 
      hyprpaper
 
-     discord
+#     discord
      rofi-wayland
      firefox-wayland
-     tor-browser-bundle-bin
+#     tor-browser-bundle-bin
 
      monocraft
 
@@ -163,8 +165,8 @@
      grim
      slurp
 
-     pipewire
-     wireplumber
+#     pipewire
+#     wireplumber
      pavucontrol
      pamixer
  
@@ -173,9 +175,16 @@
      spotifyd
      spotify-tui
 
-     papirus-icon-theme
-     bibata-cursors
+#     papirus-icon-theme
+#     bibata-cursors
   ];
+
+  ############################################# Nix-ld #############################################
+  ##################################################################################################
+ 
+  programs.nix-ld.enable = true;
+
+  #programs.nix-ld.package = pkgs.callPackage ../nix-ld.nix {};
 
   ##################################### Programs and Services ######################################
   ##################################################################################################
@@ -231,15 +240,20 @@
   # Bluetooth
   hardware.bluetooth.enable = true;
 
+  # Pulseaudio
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+
+#--not working:
   # Pipewore
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-   enable = true;
-   alsa.enable = true;
-   alsa.support32Bit = true;
-   pulse.enable = true;
-  };
+#  hardware.pulseaudio.enable = false;
+#  security.rtkit.enable = true;
+#  services.pipewire = {
+#   enable = true;
+#   alsa.enable = true;
+#   alsa.support32Bit = true;
+#   pulse.enable = true;
+#  };
 
   # Spotifyd
   #services.spotifyd.enable = true;
