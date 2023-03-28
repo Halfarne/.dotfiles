@@ -30,6 +30,7 @@ require('packer').startup(function(use)
   --use 'williamboman/mason.nvim'
   --use 'williamboman/mason-lspconfig.nvim'
   use 'neovim/nvim-lspconfig'
+  use 'brenoprata10/nvim-highlight-colors'
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -68,6 +69,7 @@ if is_bootstrap then
 end
 
 ---------------------------------------------------END PACKER-
+require('nvim-highlight-colors').setup {}
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -131,7 +133,7 @@ pcall(require('telescope').load_extension, 'fzf')
 ---------------------------------------------------NVIM-TREESITTER-
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'nix', 'json' , 'bash'},
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -251,4 +253,3 @@ end
   map("n", "c", ":tabclose<CR>", { silent = true })
   map("t", ",c", "exit<CR>", { silent = true })
   map('v', '<C-C>', "<cmd>:aunmenu PopUp.copy<CR>")
-
