@@ -118,24 +118,15 @@
 
   environment.systemPackages = with pkgs; [
 
-#     nix-index
-#     fzf
-#     libGLU
-    
      gh
      git
      gcc
 
      ncurses
 
-     python3
-
-#     rustc
-#     cargo
      jdk
      jre
 
-#     ranger
      btop
      starship
      tty-clock
@@ -155,7 +146,6 @@
 
      hyprpaper
 
-#     discord
      rofi-wayland
      firefox-wayland
 #     tor-browser-bundle-bin
@@ -166,8 +156,6 @@
      grim
      slurp
 
-#     pipewire
-#     wireplumber
      pavucontrol
      pamixer
  
@@ -175,9 +163,6 @@
 
      spotifyd
      spotify-tui
-
-#     papirus-icon-theme
-#     bibata-cursors
   ];
 
   ############################################# Nix-ld #############################################
