@@ -83,9 +83,9 @@
 
      # Configure doas
      security.doas.extraRules = [{
-           users = [ "halfarne" ];
-           keepEnv = true;
-  	   persist = true;
+        users = [ "halfarne" ];
+        keepEnv = true;
+  	    persist = true;
      }];
 
 
@@ -112,7 +112,23 @@
 
   console.keyMap = "cz-lat2";
 
+  ##################################### /etc/issue ####################################
+  #####################################################################################
+  environment.etc = {
+  # Creates /etc/nanorc
+  issue = {
+      text = ''
+   _  ___      ____  ____
+  / |/ (_)_ __/ __ \/ __/
+ /    / /\ \ / /_/ /\ \  
+/_/|_/_//_\_\\____/___/  
 
+       '';
+
+      # The UNIX file mode bits
+      mode = "0440";
+    };
+  };
   ##################################### Packages ######################################
   #####################################################################################
 
@@ -127,12 +143,15 @@
      jdk
      jre
 
+     python3
+
      btop
      starship
      tty-clock
      neofetch
      wget
      kitty
+     dunst
 
      lutris
      steam
