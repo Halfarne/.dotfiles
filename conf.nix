@@ -31,6 +31,7 @@
 
   #ntfs
   boot.supportedFilesystems = [ "ntfs" ];
+
   fileSystems."/mnt/500G-ssd" =
     { device = "/dev/disk/by-uuid/57A11A4670A755AC";
       fsType = "ntfs3"; 
@@ -40,9 +41,19 @@
   #ext3
   fileSystems."/mnt/1TB-hdd" =
     { device = "/dev/disk/by-uuid/29788cf6-33b0-45a7-8ee0-a5368cb4e723";
-      fsType = "auto"; 
-      options = ["defaults" "rw" ];
+      fsType = "ext3"; 
+      options = ["defaults" "rw"];
     };
+
+   # ...
+   #fileSystems."/nix" = {
+   #  device = "/dev/disk/by-uuid/019e842a-5d1b-4836-8170-d67230765e9b";
+   #  fsType = "btrfs";
+   #  neededForBoot = true;
+   #  options = [ "noatime" ];
+   #};
+ 
+
   
 
   ############################### Nix configuration ################################
@@ -104,13 +115,12 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "cs_CZ.UTF-8";
-  # console = {
-  #   font = "Monocraft";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkbOptions in tty.
-  # };
+   console = {
+     font = "monocraft";
+     keyMap = "cz-lat2";
+   };
 
-  console.keyMap = "cz-lat2";
+  #console.keyMap = "cz-lat2";
 
   ##################################### /etc/issue ####################################
   #####################################################################################
@@ -152,6 +162,8 @@
      wget
      kitty
      dunst
+     gparted
+     nitch
 
      lutris
      steam
@@ -177,6 +189,13 @@
 
      pavucontrol
      pamixer
+
+     mpv
+     discord
+
+     freecad
+     eagle
+     prusa-slicer
  
      blueman
 
@@ -226,7 +245,7 @@
      };
      character = {
        success_symbol = "[->](red bold)";
-       error_symbol = "[->](red bold)";
+       error_symbol = "[\>](red bold)";
      };
   };
 
