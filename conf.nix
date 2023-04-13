@@ -37,7 +37,7 @@
   fileSystems."/mnt/500G-ssd" =
     { device = "/dev/disk/by-uuid/57A11A4670A755AC";
       fsType = "ntfs"; 
-      options = [ "rw" "uid=1000" "gid=100" "umask=0022" "fmask=0022" ];
+      options = [ "rw" "uid=1001" "gid=100" "umask=0022" "fmask=0022" ];
     };
 
   #ext3
@@ -165,6 +165,7 @@
      nitch
      zip
      unzip
+     bashmount
 
      lutris
      steam
