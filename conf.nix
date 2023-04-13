@@ -26,6 +26,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
+  boot.kernelParams = ["msr.allow_writes=on"];
+
   #################################### Disks #######################################
   ##################################################################################
 
@@ -34,7 +36,7 @@
 
   fileSystems."/mnt/500G-ssd" =
     { device = "/dev/disk/by-uuid/57A11A4670A755AC";
-      fsType = "ntfs3"; 
+      fsType = "ntfs"; 
       options = [ "rw" "uid=1000" "gid=100" "umask=0022" "fmask=0022" ];
     };
 
@@ -148,7 +150,6 @@
      git
      gcc
 
-     ncurses
 
      jdk
      jre
@@ -157,13 +158,13 @@
 
      btop
      starship
-     tty-clock
-     neofetch
      wget
      kitty
      dunst
      gparted
      nitch
+     zip
+     unzip
 
      lutris
      steam
@@ -176,6 +177,7 @@
      libinput
 
      hyprpaper
+     wl-clipboard
 
      rofi-wayland
      firefox-wayland
@@ -192,6 +194,7 @@
 
      mpv
      discord
+     onlyoffice-bin 
 
      freecad
      eagle
@@ -201,6 +204,9 @@
 
      spotifyd
      spotify-tui
+
+     monero-gui
+     xmrig
   ];
 
   ############################################# Nix-ld #############################################
@@ -238,14 +244,20 @@
   programs.starship.enable = true;
   programs.starship.settings = {
   add_newline = false;
-     format = "$directory$character";
+     format = "$nix_shell$directory$character";
      directory = {
        read_only = " ";
        truncation_length = 0;
+       style = "bold cyan";
      };
      character = {
-       success_symbol = "[->](red bold)";
-       error_symbol = "[\>](red bold)";
+       success_symbol = "[>](white bold)";
+       error_symbol = "[>](red bold)";
+     };
+     nix_shell = {
+       symbol = "❄(boldw white) ";
+       style = "bold blue";
+       format = "[$symbol$state( \($name\))]($style) ";
      };
   };
 
