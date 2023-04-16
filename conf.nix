@@ -89,6 +89,14 @@
     packages = with pkgs; [];
   };
 
+  environment.shellAliases = {
+      please = "doas";
+      sudo = "doas";
+      nreb = "nixos-rebuild switch --flake /etc/nixos#halfofpc";
+  };
+
+  programs.dconf.enable = true;
+
   # Doas
   # Enable doas instead of sudo
   security.doas.enable = true;
