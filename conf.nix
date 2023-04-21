@@ -175,8 +175,18 @@
      unzip
      bashmount
 
+     libusb1
+     openocd
+     cmake
+     gcc-arm-embedded
+     pico-sdk
+     picotool
+
+     rshell
+
      lutris
      steam
+     minecraft
      dxvk
      wineWowPackages.stable
      winetricks
@@ -203,7 +213,8 @@
 
      mpv
      discord
-     onlyoffice-bin 
+     onlyoffice-bin
+     zathura
 
      freecad
      eagle
