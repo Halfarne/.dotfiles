@@ -9,54 +9,13 @@
 
   # Boot
   boot.loader.systemd-boot.enable = true;
-  #boot.loader.grub.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
-  # NVIDIA
-  nixpkgs.config.allowUnfree = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.enable = true;
-
-  hardware.nvidia.modesetting.enable = true;
-  programs.xwayland.enable = true;
 
   ############################### Linux Zen kernel #################################
   ##################################################################################
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  boot.kernelParams = ["msr.allow_writes=on"];
-
-  #################################### Disks #######################################
-  ##################################################################################
-
-  #ntfs
-  boot.supportedFilesystems = [ "ntfs" ];
-
-  fileSystems."/mnt/500G-ssd" =
-    { device = "/dev/disk/by-uuid/57A11A4670A755AC";
-      fsType = "ntfs"; 
-      options = [ "rw" "uid=1001" "gid=100" "umask=0022" "fmask=0022" ];
-    };
-
-  #ext3
-  fileSystems."/mnt/1TB-hdd" =
-    { device = "/dev/disk/by-uuid/29788cf6-33b0-45a7-8ee0-a5368cb4e723";
-      fsType = "ext3"; 
-      options = ["defaults" "rw"];
-    };
-
-   # ...
-   #fileSystems."/nix" = {
-   #  device = "/dev/disk/by-uuid/019e842a-5d1b-4836-8170-d67230765e9b";
-   #  fsType = "btrfs";
-   #  neededForBoot = true;
-   #  options = [ "noatime" ];
-   #};
- 
-
-  
+  boot.kernelPackages = pkgs.linuxPackages_5_9;
 
   ############################### Nix configuration ################################
   ##################################################################################
@@ -82,9 +41,9 @@
 
 
   # User
-   users.users.halfarne = {
+   users.users.adamstoctyricet = {
     isNormalUser = true;
-    description = "halfarne";
+    description = "adamstoctyricet";
     extraGroups = [ "networkmanager" "wheel" "audio" "disk" "video" "input" "dialout"];
     packages = with pkgs; [];
   };
@@ -104,7 +63,7 @@
 
      # Configure doas
      security.doas.extraRules = [{
-        users = [ "halfarne" ];
+        users = [ "adamstoctyricet" ];
         keepEnv = true;
   	    persist = true;
      }];
@@ -118,7 +77,7 @@
   };
 
   # Hostname
-  networking.hostName = "halfofpc"; # Define your hostname.
+  networking.hostName = "halfofserver"; # Define your hostname.
 
   # Set your time zone.
   time.timeZone = "Europe/Prague";
@@ -141,7 +100,7 @@
    _  ___      ____  ____
   / |/ (_)_ __/ __ \/ __/
  /    / /\ \ / /_/ /\ \  
-/_/|_/_//_\_\\____/___/  
+/_/|_/_//_\_\\____/___/  (server)
 
        '';
 
@@ -167,75 +126,22 @@
      btop
      starship
      wget
-     kitty
-     dunst
-     gparted
      nitch
      zip
      unzip
      bashmount
      exfatprogs
 
-     libusb1
-     openocd
-     cmake
-     gcc-arm-embedded
-     pico-sdk
-     picotool
-
-     rshell
-
-     lutris
-     steam
-     minecraft
-     dxvk
-     wineWowPackages.stable
-     winetricks
-
-     nvidia-vaapi-driver
-     libva
-     libinput
-
-     hyprpaper
-     wl-clipboard
-
-     rofi-wayland
-     firefox-wayland
-#     tor-browser-bundle-bin
-
      monocraft
 
      neovim
-     grim
-     slurp
 
-     pavucontrol
      pamixer
-
-     mpv
-     discord
-     onlyoffice-bin
-     zathura
-
-     freecad
-     eagle
-     prusa-slicer
  
      blueman
 
-     spotifyd
-     spotify-tui
-
-     monero-gui
      xmrig
   ];
-
-  ############################################# Nix-ld #############################################
-  ##################################################################################################
- 
-  programs.nix-ld.enable = true;
-
-  #programs.nix-ld.package = pkgs.callPackage ../nix-ld.nix {};
 
   ##################################### Programs and Services ######################################
   ##################################################################################################
@@ -252,14 +158,6 @@
 
   # Java
   programs.java.enable = true;
-
-  # Steam
-  programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true;
-  dedicatedServer.openFirewall = true;
-  };
-
 
   # Starship
   programs.starship.enable = true;
@@ -291,44 +189,22 @@
   #udisk
   services.udisks2.enable=true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  ##################################### Podman containers ##########################################
+  ##################################################################################################
 
-  # Bluetooth
-  hardware.bluetooth.enable = true;
-
-  # Pulseaudio
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-
-#--not working:
-  # Pipewore
-#  hardware.pulseaudio.enable = false;
-#  security.rtkit.enable = true;
-#  services.pipewire = {
-#   enable = true;
-#   alsa.enable = true;
-#   alsa.support32Bit = true;
-#   pulse.enable = true;
-#  };
-
-  # Spotifyd
-  #services.spotifyd.enable = true;
-  #services.spotifyd.settings = {
-  #global = {
-  #  username = " Nothing to ";
-  #  password = "  See Here  ";
-  #  backend = "alsa";
-  #  device_name = "moje_reproduktory";
-  #  #bitrate = 160;
-  #  #no_audio_cache = true;
-  #  initial_volume = "100";
-  #  #normalisation_pregain = -10;
-  #  autoplay = true;
-  #  device_type = "computer";
-  #  };
-  #};
-
+  #Home assistant
+  virtualisation.oci-containers = {
+    backend = "podman";
+    containers.homeassistant = {
+      volumes = [ "home-assistant:/config" ];
+      environment.TZ = "Europe/Prague";
+      image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
+      extraOptions = [ 
+        #"--network=host" 
+        #"--device=/dev/ttyACM0:/dev/ttyACM0"  # Example, change this to match your own hardware
+      ];
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
