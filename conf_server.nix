@@ -8,7 +8,7 @@
     ];
 
   # Boot
-  boot.loader.grub.device = "/dev/disk/by-label/root";
+  boot.loader.grub.device = "/dev/disk/by-id/ata-WDC_WD3200BEVT-22A23T0_WD-WX91A4030606";
 
   ############################### Linux Zen kernel #################################
   ##################################################################################
