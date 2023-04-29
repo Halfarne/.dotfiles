@@ -8,14 +8,12 @@
     ];
 
   # Boot
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.grub.device = "/dev/disk/by-label/root";
 
   ############################### Linux Zen kernel #################################
   ##################################################################################
 
-  boot.kernelPackages = pkgs.linuxPackages_5_9;
+  boot.kernelPackages = pkgs.linuxPackages_5_4;
 
   ############################### Nix configuration ################################
   ##################################################################################
@@ -131,13 +129,14 @@
      unzip
      bashmount
      exfatprogs
+     tmux
 
      monocraft
 
      neovim
 
      pamixer
- 
+
      blueman
 
      xmrig
@@ -153,8 +152,6 @@
 
   # Blueman
   services.blueman.enable = true;
-
-  xdg.portal.enable = true;
 
   # Java
   programs.java.enable = true;
@@ -193,18 +190,18 @@
   ##################################################################################################
 
   #Home assistant
-  virtualisation.oci-containers = {
-    backend = "podman";
-    containers.homeassistant = {
-      volumes = [ "home-assistant:/config" ];
-      environment.TZ = "Europe/Prague";
-      image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
-      extraOptions = [ 
+  #virtualisation.oci-containers = {
+  #  backend = "podman";
+  #  containers.homeassistant = {
+  #    volumes = [ "home-assistant:/config" ];
+  #    environment.TZ = "Europe/Prague";
+  #    image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
+  #    extraOptions = [ 
         #"--network=host" 
         #"--device=/dev/ttyACM0:/dev/ttyACM0"  # Example, change this to match your own hardware
-      ];
-    };
-  };
+  #    ];
+  #  };
+  #};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
