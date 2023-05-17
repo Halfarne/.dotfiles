@@ -213,7 +213,6 @@
      pamixer
 
      mpv
-     discord
      onlyoffice-bin
      zathura
 
@@ -327,7 +326,7 @@
   #  autoplay = true;
   #  device_type = "computer";
   #  };
-  #};
+  #}; 
 
 
   # This value determines the NixOS release from which the default
