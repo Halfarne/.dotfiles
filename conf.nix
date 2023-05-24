@@ -192,6 +192,8 @@
      wineWowPackages.stable
      winetricks
 
+     obsidian
+
      nvidia-vaapi-driver
      libva
      libinput
@@ -290,15 +292,27 @@
   #udisk
   services.udisks2.enable=true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Bluetooth
   hardware.bluetooth.enable = true;
 
   # Pulseaudio
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
+
+  #Syncthing
+  services = {
+    syncthing = {
+        enable = true;
+        user = "halfarne";
+        dataDir = "/mnt/1TB-hdd/Syncthing";    # Default folder for new synced folders
+        configDir = "/mnt/1TB-hdd/Syncthing/.config";   # Folder for Syncthing's settings and keys
+    };
+  };
+
+  services.syncthing.extraOptions.gui = {
+    user = "halfarne";
+    password = "halfarne";
+  };
 
 #--not working:
   # Pipewore

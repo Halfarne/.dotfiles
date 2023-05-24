@@ -109,6 +109,8 @@
   ##################################### Packages ######################################
   #####################################################################################
 
+  nixpkgs.config.allowUnfree = true;
+
   environment.systemPackages = with pkgs; [
 
      gh
@@ -130,6 +132,7 @@
      bashmount
      exfatprogs
      tmux
+     ngrok
 
      monocraft
 
@@ -186,22 +189,26 @@
   #udisk
   services.udisks2.enable=true;
 
-  ##################################### Podman containers ##########################################
-  ##################################################################################################
+  ##################################### Home assistant ##########################################
+  ###############################################################################################
 
-  #Home assistant
-  #virtualisation.oci-containers = {
-  #  backend = "podman";
-  #  containers.homeassistant = {
-  #    volumes = [ "home-assistant:/config" ];
-  #    environment.TZ = "Europe/Prague";
-  #    image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
-  #    extraOptions = [ 
-        #"--network=host" 
-        #"--device=/dev/ttyACM0:/dev/ttyACM0"  # Example, change this to match your own hardware
-  #    ];
-  #  };
-  #};
+  #services.home-assistant.openFirewall = true;
+  networking.firewall.allowedTCPPorts = [ 
+
+  8123
+  8124
+  6052
+
+  ];
+
+  ###################################### OCI container
+
+  docker-containers.hass = {
+      image = "homeassistant/home-assistant:stable";
+      environment = { TZ = "Europe/Prague"; };
+      extraDockerOptions = ["--net=host" ];
+      volumes = [ "/var/lib/homeassistant:/config" ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
