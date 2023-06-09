@@ -158,7 +158,6 @@
      git
      gcc
 
-
      jdk
      jre
 
@@ -217,6 +216,7 @@
      mpv
      onlyoffice-bin
      zathura
+     termusic
 
      freecad
      eagle
