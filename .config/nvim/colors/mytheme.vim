@@ -3,8 +3,8 @@
   
   if &background == 'dark'
     
-  let s:guishade0 = "#1e1205"
-  let s:guishade1 = "#3e3424"
+  let s:guishade0 = "#193b4d"
+  let s:guishade1 = "#102531"
   let s:guishade2 = "#5e5543"
   let s:guishade3 = "#7e7762"
   let s:guishade4 = "#807850"

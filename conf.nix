@@ -130,6 +130,11 @@
      keyMap = "cz-lat2";
    };
 
+   services.udev.extraRules = ''
+    SUBSYSTEM=="usb", MODE="0666"
+    '';
+
+
   #console.keyMap = "cz-lat2";
 
   ##################################### /etc/issue ####################################
@@ -217,6 +222,9 @@
      onlyoffice-bin
      zathura
      termusic
+
+     jmtpfs
+     mtpfs
 
      freecad
      eagle
