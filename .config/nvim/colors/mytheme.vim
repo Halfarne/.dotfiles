@@ -3,7 +3,7 @@
   
   if &background == 'dark'
     
-  let s:guishade0 = "#193b4d"
+  let s:guishade0 = "#042733"
   let s:guishade1 = "#102531"
   let s:guishade2 = "#5e5543"
   let s:guishade3 = "#7e7762"
@@ -95,7 +95,7 @@
 
   " Default
 
-  exec "hi Comment guifg=".s:guishade2
+  exec "hi Comment guifg=".s:guishade1
   exec "hi Comment ctermfg=".s:ctermshade2
   exec "hi Constant guifg=".s:guiaccent3
   exec "hi Constant ctermfg=".s:ctermaccent3

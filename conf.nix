@@ -173,19 +173,19 @@
      wget
      kitty
      dunst
-     gparted
+     #gparted
      nitch
      zip
      unzip
      bashmount
      exfatprogs
 
-     libusb1
-     openocd
-     cmake
-     gcc-arm-embedded
-     pico-sdk
-     picotool
+     #libusb1
+     #openocd
+     #cmake
+     #gcc-arm-embedded
+     #pico-sdk
+     #picotool
 
      rshell
 
@@ -219,9 +219,9 @@
      pamixer
 
      mpv
+     mpc-cli
      onlyoffice-bin
      zathura
-     termusic
 
      jmtpfs
      mtpfs
@@ -231,12 +231,6 @@
      prusa-slicer
  
      blueman
-
-     spotifyd
-     spotify-tui
-
-     monero-gui
-     xmrig
   ];
 
   ############################################# Nix-ld #############################################
@@ -276,7 +270,7 @@
   add_newline = false;
      format = "$nix_shell$directory$character";
      directory = {
-       read_only = " ";
+       read_only = " :x";
        truncation_length = 0;
        style = "bold cyan";
      };
@@ -304,9 +298,23 @@
   hardware.bluetooth.enable = true;
 
   # Pulseaudio
+  sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
+    services.mpd = {
+	    enable = true;
+	    musicDirectory = "/mnt/1TB-hdd/Hudba";
+	    user = "halfarne";
+	    extraConfig = ''
+	      audio_output {
+	        type "pulse"
+	        name "pulseaudio"
+	      }
+	    '';
+	  };
+
+  
   #Syncthing
   services = {
     syncthing = {
@@ -321,19 +329,6 @@
     user = "halfarne";
     password = "halfarne";
   };
-
-  services.mpd = {
-  enable = true;
-  musicDirectory = "/mnt/1TB-hdd/Hudba";
-  extraConfig = ''
-    # must specify one or more outputs in order to play audio!
-    # (e.g. ALSA, PulseAudio, PipeWire), see next sections
-  '';
-
-  # Optional:
-  network.listenAddress = "any"; # if you want to allow non-localhost connections
-  startWhenNeeded = true; # systemd feature: only start MPD service upon connection to its socket
-};
 
 #--not working:
   # Pipewore
