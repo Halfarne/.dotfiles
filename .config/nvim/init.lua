@@ -31,6 +31,7 @@ require('packer').startup(function(use)
   --use 'williamboman/mason-lspconfig.nvim'
   use 'neovim/nvim-lspconfig'
   use 'brenoprata10/nvim-highlight-colors'
+  use "lukas-reineke/indent-blankline.nvim"
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -105,6 +106,15 @@ vim.o.completeopt = 'menuone,noselect'
 vim.opt.termguicolors = true
 vim.cmd("colorscheme mytheme")
 
+---------------------------------------------------BLANK LINE-
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol:↴"
+
+require("indent_blankline").setup {
+    show_end_of_line = true,
+    space_char_blankline = " ",
+}
 ---------------------------------------------------LUALINE-
 
 require('lualine').setup {
@@ -131,9 +141,13 @@ require('telescope').setup {
 pcall(require('telescope').load_extension, 'fzf')
 
 ---------------------------------------------------NVIM-TREESITTER-
+vim.cmd("set tabstop=4")
+vim.cmd("set shiftwidth=4")
+vim.cmd("set expandtab")
+vim.cmd("set smartindent")
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'nix', 'json' , 'bash'},
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'vim', 'nix', 'json' , 'bash'},
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -238,7 +252,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 ----------------------------------------------------KEYMAPS-
--- Functional wrapper for mapping custom keybindings
 function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then

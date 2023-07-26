@@ -1,4 +1,4 @@
-{ config, pkgs, lib,  ... }:
+{ pkgs, lib,  ... }:
 
 {
   imports =
@@ -109,6 +109,9 @@
   	    persist = true;
      }];
 
+  # Pam_USB
+  #security.pam.usb.enable = true;
+
 
   # SSID
   # programs.mtr.enable = true;
@@ -140,13 +143,13 @@
   ##################################### /etc/issue ####################################
   #####################################################################################
   environment.etc = {
-  # Creates /etc/nanorc
+  # Creates /etc/issue
   issue = {
       text = ''
    _  ___      ____  ____
   / |/ (_)_ __/ __ \/ __/
  /    / /\ \ / /_/ /\ \  
-/_/|_/_//_\_\\____/___/  
+/_/|_/_//_\_\\____/___/  (this is \l)
 
        '';
 
@@ -163,8 +166,8 @@
      git
      gcc
 
-     jdk
-     jre
+     jdk17
+     #jre
 
      python3
 
@@ -180,6 +183,7 @@
      bashmount
      exfatprogs
 
+     #minicom
      #libusb1
      #openocd
      #cmake
@@ -191,10 +195,13 @@
 
      lutris
      steam
-     minecraft
+     steamtinkerlaunch
+     prismlauncher
      dxvk
      wineWowPackages.stable
      winetricks
+     #gamescope
+     mangohud
 
      obsidian
 
@@ -215,11 +222,14 @@
      grim
      slurp
 
-     pavucontrol
+     #pavucontrol
      pamixer
+     pulsemixer
 
      mpv
-     mpc-cli
+     #mpc-cli
+     pms
+
      onlyoffice-bin
      zathura
 
@@ -251,7 +261,20 @@
   # Blueman
   services.blueman.enable = true;
 
+  #XDG
   xdg.portal.enable = true;
+
+  # KDEconnect
+  programs.kdeconnect.enable = true;
+  networking.firewall = { 
+    enable = true;
+    allowedTCPPortRanges = [ 
+      { from = 1714; to = 1764; } # KDE Connect
+    ];  
+    allowedUDPPortRanges = [ 
+      { from = 1714; to = 1764; } # KDE Connect
+    ];  
+  };
 
   # Java
   programs.java.enable = true;
@@ -285,6 +308,26 @@
      };
   };
 
+  # Gamescope
+  #programs.gamescope.enable=true;
+
+  #nixpkgs.config.packageOverrides = pkgs: {
+  #  steam = pkgs.steam.override {
+  #    extraPkgs = pkgs: with pkgs; [
+  #      xorg.libXcursor
+  #      xorg.libXi
+  #      xorg.libXinerama
+  #      xorg.libXScrnSaver
+  #      libpng
+  #      libpulseaudio
+  #      libvorbis
+  #      stdenv.cc.cc.lib
+  #      libkrb5
+  #      keyutils
+  #    ];
+  #  };
+  #};
+
   # NetworkManager
   networking.networkmanager.enable = true;
 
@@ -297,22 +340,29 @@
   # Bluetooth
   hardware.bluetooth.enable = true;
 
-  # Pulseaudio
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  #Pulseaudio
+  #sound.enable = true;
+  #hardware.pulseaudio.enable = true;
+  #hardware.pulseaudio.support32Bit = true;
 
-    services.mpd = {
-	    enable = true;
-	    musicDirectory = "/mnt/1TB-hdd/Hudba";
-	    user = "halfarne";
-	    extraConfig = ''
-	      audio_output {
-	        type "pulse"
-	        name "pulseaudio"
-	      }
-	    '';
-	  };
+  services.mpd = {
+   enable = true;
+   musicDirectory = "/mnt/1TB-hdd/Hudba";
+   user = "halfarne";
+   extraConfig = ''
+      audio_output {
+      type "pipewire"
+      name "Pipewire"
+      }
+   '';
+   network.listenAddress = "any"; 
+   startWhenNeeded = true; 
+  };
+  systemd.services.mpd.environment = {
+   # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
+   # User-id 1000 must match above user. MPD will look inside this directory for the PipeWire socket.
+   XDG_RUNTIME_DIR = "/run/user/1001";
+  };
 
   
   #Syncthing
@@ -332,31 +382,16 @@
 
 #--not working:
   # Pipewore
-#  hardware.pulseaudio.enable = false;
-#  security.rtkit.enable = true;
-#  services.pipewire = {
-#   enable = true;
-#   alsa.enable = true;
-#   alsa.support32Bit = true;
-#   pulse.enable = true;
-#  };
-
-  # Spotifyd
-  #services.spotifyd.enable = true;
-  #services.spotifyd.settings = {
-  #global = {
-  #  username = " Nothing to ";
-  #  password = "  See Here  ";
-  #  backend = "alsa";
-  #  device_name = "moje_reproduktory";
-  #  #bitrate = 160;
-  #  #no_audio_cache = true;
-  #  initial_volume = "100";
-  #  #normalisation_pregain = -10;
-  #  autoplay = true;
-  #  device_type = "computer";
-  #  };
-  #}; 
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+   enable = true;
+   alsa.enable = true;
+   alsa.support32Bit = true;
+   pulse.enable = true;
+   jack.enable = true;
+   wireplumber.enable = true;
+  };
 
 
   # This value determines the NixOS release from which the default

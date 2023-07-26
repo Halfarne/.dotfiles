@@ -8,14 +8,18 @@ static const float focuscolor[]            = {0.3, 0.6, 0.7, 1.0};
 static const float fullscreen_bg[]         = {0.1, 0.1, 0.1, 1.0};
 
 /* tagging - tagcount must be no greater than 31 */
-static const int tagcount = 9;
+static const int tagcount = 5;
 
 static const Rule rules[] = {
 	/* app_id     title       tags mask     isfloating   monitor */
 	/* examples:
 	{ "Gimp",     NULL,       0,            1,           -1 },
 	*/
-	{ "firefox",  NULL,       1 << 8,       0,           -1 },
+    { "firefox",  NULL,       1 << 1,       0,           -1 },
+    { "kitty",    NULL,       0,            1,           -1 },
+    { "pms",      NULL,       5,            0,           -1 },
+    { "pulsemixer",NULL,      5,            0,           -1 },
+
 };
 
 /* layout(s) */
@@ -107,8 +111,13 @@ static const char *termcmd[] = { "kitty", NULL };
 static const char *menucmd[] = { "rofi -show drun", NULL };
 static const char *power[] = { "rofi -show power-menu -modi power-menu:/~/.config/rofi/rofi-power-menu", NULL };
 static const char *browser[] = { "firefox", NULL };
+
 static const char *volup[] = { "pamixer -i 5", NULL };
 static const char *voldown[] = { "pamixer -d 5", NULL };
+static const char *tmic[] = { "pamixer", "--source", "82", "-t", NULL}; /*82 - webkamera - mikrofon*/
+
+static const char *pms[] = { "kitty", "pms", NULL };
+static const char *pulsemixer[] = { "kitty", "pulsemixer", NULL };
 
 
 static const Key keys[] = {
@@ -124,13 +133,13 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_c,          incnmaster,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_b,          setmfact,       {.f = -0.05} },
 	{ MODKEY,                    XKB_KEY_n,          setmfact,       {.f = +0.05} },
-	{ MODKEY,                    XKB_KEY_Return,     zoom,           {0} },
+    { MODKEY,                    XKB_KEY_Return,     zoom,           {0} },
 	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
 	{ MODKEY,                    XKB_KEY_k,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_1,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_2,          setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                    XKB_KEY_3,          setlayout,      {.v = &layouts[2]} },
-    /*{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },*/
+    { MODKEY|WLR_MODIFIER_SHIFT,XKB_KEY_0,           setlayout,      {0} },
 	{ MODKEY,                    XKB_KEY_v,          togglefloating, {0} },
 	{ MODKEY,                    XKB_KEY_l,          togglefullscreen, {0} },
 	{ MODKEY,                    XKB_KEY_0,          view,           {.ui = ~0} },
@@ -157,7 +166,9 @@ static const Button buttons[] = {
 	{ MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
 	{ MODKEY, BTN_MIDDLE, togglefloating, {0} },
 	{ MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
-    /*{ 0, BTN_MIDDLE,	spawn,		{.v = tmic} },*/
-	{ 0, BTN_SIDE,		spawn,		{.v = volup} },
-	{ 0, BTN_EXTRA,		spawn,		{.v = voldown} },
+    { 0, BTN_MIDDLE,	spawn,		{.v = tmic} },
+	{ 0, BTN_EXTRA,		spawn,		{.v = volup} },
+	{ 0, BTN_SIDE,		spawn,		{.v = voldown} },
+	{ MODKEY, BTN_EXTRA,		spawn,		{.v = pms} },
+	{ MODKEY, BTN_SIDE,		spawn,		{.v = pulsemixer} },
 };

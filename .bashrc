@@ -15,7 +15,8 @@ alias ipv6="ip -6 addr show scope global | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;
 alias ssh='kitty +kitten ssh'
 alias time='timedatectl | grep "Local"'
 
-alias nix-conf-update='please  cp ~/.dotfiles/conf.nix /etc/nixos/conf.nix'
+alias nixupd='please  cp ~/.dotfiles/conf.nix /etc/nixos/conf.nix'
+alias nixreb = "please nixos-rebuild switch --flake /etc/nixos#halfofpc"
 
 #PS1='[\u@\h \W]\$ '
 eval "$(starship init bash)"

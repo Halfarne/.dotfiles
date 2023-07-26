@@ -30,6 +30,7 @@ if [[ $confirmln == [yY] ]]
     ln -s /home/halfarne/.dotfiles/.bash_profile /home/halfarne/
 
     ln -s /home/halfarne/.dotfiles/.hyprinitrc /home/halfarne/
+    ln -s /home/halfarne/.dotfiles/.dwlinitrc /home/halfarne/
   fi
 
 read -p "Copy Files?(Y/N): " confirm && [[ $confirmcp == [yY] || $confirmcp == [yY][eE][sS] ]]
@@ -55,12 +56,25 @@ if [[ $confitmcp == [yY] ]]
     cp /home/halfarne/.dotfiles/.bash_profile /home/halfarne/
 
     cp /home/halfarne/.dotfiles/.hyprinitrc /home/halfarne/
+    cp /home/halfarne/.dotfiles/.dwlinitrc /home/halfarne/
   fi
 
 if [[ $confirmln != [yY] && $confirmcp != [yY] ]]
   then
 
     echo No option selected
+  fi
+
+read -p "Clone and build DWL (only for NixOs or with installed Nix)(Y/N): " confirm && [[ $confirmdwl == [yY] || $confirmdwk == [yY][eE][sS] ]]
+
+if [[ $confitmcp == [yY] ]]
+  then
+
+    cd ~
+    git clone https://github.com/Halfarne/dwl.git
+    cd dwl
+
+    nix build
   fi
 
 read -p "Exiting program..." && exit 1
