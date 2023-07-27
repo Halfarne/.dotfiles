@@ -209,7 +209,8 @@
      libva
      libinput
 
-     hyprpaper
+     #hyprpaper
+     wbg
      wl-clipboard
 
      rofi-wayland
@@ -265,16 +266,7 @@
   xdg.portal.enable = true;
 
   # KDEconnect
-  programs.kdeconnect.enable = true;
-  networking.firewall = { 
-    enable = true;
-    allowedTCPPortRanges = [ 
-      { from = 1714; to = 1764; } # KDE Connect
-    ];  
-    allowedUDPPortRanges = [ 
-      { from = 1714; to = 1764; } # KDE Connect
-    ];  
-  };
+  #programs.kdeconnect.enable = true;
 
   # Java
   programs.java.enable = true;
@@ -380,7 +372,6 @@
     password = "halfarne";
   };
 
-#--not working:
   # Pipewore
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
