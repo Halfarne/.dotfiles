@@ -92,7 +92,7 @@
   environment.shellAliases = {
       please = "doas";
       sudo = "doas";
-      nreb = "nixos-rebuild switch --flake /etc/nixos#halfofpc";
+      nixreb = "nixos-rebuild switch --flake /etc/nixos#halfofpc";
   };
 
   programs.dconf.enable = true;
@@ -166,6 +166,9 @@
      git
      gcc
 
+     cargo
+     rustc
+
      jdk17
      #jre
 
@@ -213,6 +216,8 @@
      wbg
      wl-clipboard
 
+     tela-circle-icon-theme
+     #bibata-cursors
      rofi-wayland
      firefox-wayland
 #     tor-browser-bundle-bin
