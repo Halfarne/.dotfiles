@@ -1,6 +1,11 @@
-{ pkgs, lib,  ... }:
+{ config, pkgs, lib,  ... }:
+let
+  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
 
-{
+  hyprland-flake = (import flake-compat {
+    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
+  }).defaultNix;
+in {
   imports =
     [
       # Include the results of the hardware scan.
@@ -72,6 +77,11 @@
     };
   };
 
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
+
   # Overlay Packages
   # nixpkgs.overlays = [ (import ./packages) ];
 
@@ -85,7 +95,7 @@
    users.users.halfarne = {
     isNormalUser = true;
     description = "halfarne";
-    extraGroups = [ "networkmanager" "wheel" "audio" "disk" "video" "input" "dialout"];
+    extraGroups = [ "networkmanager" "wheel" "audio" "disk" "video" "input" "dialout" "render"];
     packages = with pkgs; [];
   };
 
@@ -110,8 +120,7 @@
      }];
 
   # Pam_USB
-  #security.pam.usb.enable = true;
-
+  security.pam.usb.enable = true;
 
   # SSID
   # programs.mtr.enable = true;
@@ -205,6 +214,7 @@
      winetricks
      #gamescope
      mangohud
+     pam_usb
 
      obsidian
 
@@ -234,7 +244,8 @@
 
      mpv
      #mpc-cli
-     pms
+     vimpc
+     #pms
 
      onlyoffice-bin
      zathura
@@ -261,17 +272,50 @@
 
   # Fonts
   fonts.fonts = with pkgs; [
-   (nerdfonts.override { fonts = [ "Mononoki" ]; })
+   (nerdfonts.override { fonts = [ "Mononoki" "Hack" ]; })
   ];
 
   # Blueman
   services.blueman.enable = true;
 
+   nixpkgs.overlays = [(
+
+    final: prev:
+    {
+        pam_usb = prev.pam_usb.overrideAttrs (old: rec {
+        version = "master";
+        pname = "pam_usb";
+            src = prev.fetchFromGitHub {
+                owner = "mcdope";
+                repo = "pam_usb";
+                rev = "2eeaaff4caf5c85dd1f4858f5f2b8caedd665455";
+                hash = "sha256-oSZ0+Cphy1+h6qn8IVKiv91+IhqUUOFnr+Ya+G+wPH0=";
+            };
+            #nativeBuildInputs = [ final.makeWrapper ];
+            buildInputs = [final.libxml2 final.python final.udisks final.glib final.pam final.dbus final.pmount ];
+            propagatedBuildInputs = [ prev.python311Packages.pygobject3 prev.python311Packages.gst-python prev.python311Packages.dbus-python prev.python311Packages.lxml  ];
+            preInstall = ''
+            makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+            '';
+        });
+    }
+  )];
+  nixpkgs.config.permittedInsecurePackages = [
+    "python-2.7.18.6"
+  ];
+
   #XDG
   xdg.portal.enable = true;
 
+  # Hyprland
+  programs.hyprland = {
+    enable = true;
+    package = hyprland-flake.packages.${pkgs.system}.hyprland;
+  };
+
+
   # KDEconnect
-  #programs.kdeconnect.enable = true;
+  programs.kdeconnect.enable = true;
 
   # Java
   programs.java.enable = true;

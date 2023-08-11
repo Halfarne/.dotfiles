@@ -16,7 +16,7 @@ alias ssh='kitty +kitten ssh'
 alias time='timedatectl | grep "Local"'
 
 alias nixupd='please  cp ~/.dotfiles/conf.nix /etc/nixos/conf.nix'
-alias nixreb = "please nixos-rebuild switch --flake /etc/nixos#halfofpc"
+alias nixreb='please nixos-rebuild switch'
 
 #PS1='[\u@\h \W]\$ '
 eval "$(starship init bash)"
