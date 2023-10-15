@@ -1,11 +1,5 @@
 { config, pkgs, lib,  ... }:
-let
-  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-
-  hyprland-flake = (import flake-compat {
-    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-  }).defaultNix;
-in {
+{
   imports =
     [
       # Include the results of the hardware scan.
@@ -21,7 +15,11 @@ in {
   # NVIDIA
   nixpkgs.config.allowUnfree = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.enable = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true; 
+    driSupport32Bit = true;
+    };
 
   hardware.nvidia.modesetting.enable = true;
   programs.xwayland.enable = true;
@@ -77,16 +75,6 @@ in {
     };
   };
 
-  nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  };
-
-  # Overlay Packages
-  # nixpkgs.overlays = [ (import ./packages) ];
-
- 
-
   ################################# User Settings ###################################
   ###################################################################################
 
@@ -119,11 +107,12 @@ in {
   	    persist = true;
      }];
 
-  # Pam_USB
-  security.pam.usb.enable = true;
+  # Pam oauth
+  security.pam.oath.enable = true;
+  #security.pam.enableOTPW = true;
+
 
   # SSID
-  # programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -212,9 +201,7 @@ in {
      dxvk
      wineWowPackages.stable
      winetricks
-     #gamescope
      mangohud
-     pam_usb
 
      obsidian
 
@@ -222,15 +209,13 @@ in {
      libva
      libinput
 
-     #hyprpaper
      wbg
      wl-clipboard
 
      tela-circle-icon-theme
-     #bibata-cursors
      rofi-wayland
      firefox-wayland
-#     tor-browser-bundle-bin
+     iamb
 
      monocraft
 
@@ -238,14 +223,11 @@ in {
      grim
      slurp
 
-     #pavucontrol
      pamixer
      pulsemixer
 
      mpv
-     #mpc-cli
      vimpc
-     #pms
 
      onlyoffice-bin
      zathura
@@ -272,50 +254,30 @@ in {
 
   # Fonts
   fonts.fonts = with pkgs; [
-   (nerdfonts.override { fonts = [ "Mononoki" "Hack" ]; })
+   (nerdfonts.override { fonts = [ "Mononoki" "Hack"]; })
   ];
 
   # Blueman
   services.blueman.enable = true;
 
-   nixpkgs.overlays = [(
-
-    final: prev:
-    {
-        pam_usb = prev.pam_usb.overrideAttrs (old: rec {
-        version = "master";
-        pname = "pam_usb";
-            src = prev.fetchFromGitHub {
-                owner = "mcdope";
-                repo = "pam_usb";
-                rev = "2eeaaff4caf5c85dd1f4858f5f2b8caedd665455";
-                hash = "sha256-oSZ0+Cphy1+h6qn8IVKiv91+IhqUUOFnr+Ya+G+wPH0=";
-            };
-            #nativeBuildInputs = [ final.makeWrapper ];
-            buildInputs = [final.libxml2 final.python final.udisks final.glib final.pam final.dbus final.pmount ];
-            propagatedBuildInputs = [ prev.python311Packages.pygobject3 prev.python311Packages.gst-python prev.python311Packages.dbus-python prev.python311Packages.lxml  ];
-            preInstall = ''
-            makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-            '';
-        });
-    }
-  )];
-  nixpkgs.config.permittedInsecurePackages = [
-    "python-2.7.18.6"
-  ];
-
   #XDG
-  xdg.portal.enable = true;
+    xdg.portal = {
+	    enable = true;
+	    wlr.enable = true;
+	    # gtk portal needed to make gtk apps happy
+	    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+	  };
+
 
   # Hyprland
   programs.hyprland = {
     enable = true;
-    package = hyprland-flake.packages.${pkgs.system}.hyprland;
+    nvidiaPatches = true;
   };
 
 
   # KDEconnect
-  programs.kdeconnect.enable = true;
+  #programs.kdeconnect.enable = true;
 
   # Java
   programs.java.enable = true;
@@ -349,26 +311,6 @@ in {
      };
   };
 
-  # Gamescope
-  #programs.gamescope.enable=true;
-
-  #nixpkgs.config.packageOverrides = pkgs: {
-  #  steam = pkgs.steam.override {
-  #    extraPkgs = pkgs: with pkgs; [
-  #      xorg.libXcursor
-  #      xorg.libXi
-  #      xorg.libXinerama
-  #      xorg.libXScrnSaver
-  #      libpng
-  #      libpulseaudio
-  #      libvorbis
-  #      stdenv.cc.cc.lib
-  #      libkrb5
-  #      keyutils
-  #    ];
-  #  };
-  #};
-
   # NetworkManager
   networking.networkmanager.enable = true;
 
@@ -380,11 +322,6 @@ in {
 
   # Bluetooth
   hardware.bluetooth.enable = true;
-
-  #Pulseaudio
-  #sound.enable = true;
-  #hardware.pulseaudio.enable = true;
-  #hardware.pulseaudio.support32Bit = true;
 
   services.mpd = {
    enable = true;
@@ -400,9 +337,7 @@ in {
    startWhenNeeded = true; 
   };
   systemd.services.mpd.environment = {
-   # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
-   # User-id 1000 must match above user. MPD will look inside this directory for the PipeWire socket.
-   XDG_RUNTIME_DIR = "/run/user/1001";
+  XDG_RUNTIME_DIR = "/run/user/1001";
   };
 
   
@@ -431,6 +366,11 @@ in {
    pulse.enable = true;
    jack.enable = true;
    wireplumber.enable = true;
+  };
+
+  networking.firewall = {
+    enable = true;
+    #allowedTCPPorts = [ 22 ];
   };
 
 

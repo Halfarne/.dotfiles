@@ -74,6 +74,12 @@
     enableSSHSupport = true;
   };
 
+  #turn off screen
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
+
   # Hostname
   networking.hostName = "halfofserver"; # Define your hostname.
 
@@ -143,6 +149,7 @@
      blueman
 
      xmrig
+     powertop
   ];
 
   ##################################### Programs and Services ######################################
@@ -170,8 +177,8 @@
        style = "bold cyan";
      };
      character = {
-       success_symbol = "[>](white bold)";
-       error_symbol = "[>](red bold)";
+       success_symbol = "[s>](white bold)";
+       error_symbol = "[s>](red bold)";
      };
      nix_shell = {
        symbol = "❄(boldw white) ";
@@ -189,17 +196,72 @@
   #udisk
   services.udisks2.enable=true;
 
-  ##################################### Home assistant ##########################################
-  ###############################################################################################
+  #Syncthing
+  services = {
+    syncthing = {
+        enable = true;
+        user = "adamstoctyricet";
+        dataDir = "/home/adamstoctyricet/Syncthing";    # Default folder for new synced folders
+        configDir = "/home/adamstoctyricet/Syncthing/.config";   # Folder for Syncthing's settings and keys
+    };
+  };
+  services.syncthing.extraOptions.gui = {
+    theme = "black";
+    user = "adamstoctyricet";
+    password = "adamstoctyricet";
+  };
 
-  #services.home-assistant.openFirewall = true;
+  #Blocky
+  services.blocky = {
+    enable = true;
+    settings = {
+      port = 53; # Port for incoming DNS Queries.
+      upstream.default = [
+        "https://doh.libredns.gr/dns-query" # LibreDNS - dns over https 
+      ];
+      # For initially solving DoH/DoT Requests when no system Resolver is available.
+      bootstrapDns = {
+        upstream = "https://doh.libredns.gr/dns-query";
+        ips = [ "116.202.176.26" ];
+      };
+      #Enable Blocking of certian domains.
+      blocking = {
+        blackLists = {
+          #Adblocking
+          ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
+      };
+      #Configure what block categories are used
+      clientGroupsBlock = {
+        default = [ "ads" ];
+      };
+    };
+  };
+  };
+
+
   networking.firewall.allowedTCPPorts = [ 
 
   8123
   8124
   6052
+  22
 
   ];
+
+  networking.firewall.allowPing = true;
+
+  networking = {
+  interfaces = {
+    enp0s10.ipv6.addresses = [{
+      address = "2a00:ca8:48a4:5c0a::2"; #9030:2432:7a8c:78f9 2a01:4f8:1c1b:16d0::";
+      prefixLength = 64;
+    }];
+  };
+  defaultGateway6 = {
+    address = "fe80::1";
+    interface = "enp0s10";
+  };
+};
 
   ###################################### OCI container
 
@@ -208,6 +270,12 @@
       environment = { TZ = "Europe/Prague"; };
       extraDockerOptions = ["--net=host" ];
       volumes = [ "/var/lib/homeassistant:/config" ];
+  };
+
+  docker-containers.esphome = {
+      image = "esphome/esphome";
+      extraDockerOptions = ["--privileged" ]; 
+      volumes = [ "/var/lib/esphome:/config" ];
   };
 
   # This value determines the NixOS release from which the default
