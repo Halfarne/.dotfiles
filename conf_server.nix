@@ -250,19 +250,6 @@
 
   networking.firewall.allowPing = true;
 
-  networking = {
-  interfaces = {
-    enp0s10.ipv6.addresses = [{
-      address = "2a00:ca8:48a4:5c0a::2"; #9030:2432:7a8c:78f9 2a01:4f8:1c1b:16d0::";
-      prefixLength = 64;
-    }];
-  };
-  defaultGateway6 = {
-    address = "fe80::1";
-    interface = "enp0s10";
-  };
-};
-
   ###################################### OCI container
 
   docker-containers.hass = {
