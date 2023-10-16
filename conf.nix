@@ -294,11 +294,14 @@
   programs.starship.enable = true;
   programs.starship.settings = {
   add_newline = false;
-     format = "$nix_shell$directory$character";
+     format = "$username$nix_shell$directory$character";
+     username = {
+        format = "\[[$user](white bold)\]";
+     };
      directory = {
        read_only = " :x";
        truncation_length = 0;
-       style = "bold cyan";
+       style = "bold red";
      };
      character = {
        success_symbol = "[>](white bold)";
