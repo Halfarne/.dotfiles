@@ -164,8 +164,8 @@
      git
      gcc
 
-     cargo
-     rustc
+     #cargo
+     #rustc
 
      jdk17
      #jre
@@ -183,6 +183,7 @@
      unzip
      bashmount
      exfatprogs
+     tmux
 
      #minicom
      #libusb1
@@ -216,6 +217,8 @@
      rofi-wayland
      firefox-wayland
      iamb
+     qt5ct
+     libsForQt5.qtstyleplugin-kvantum
 
      monocraft
 
@@ -236,6 +239,7 @@
      mtpfs
 
      freecad
+     openscad
      eagle
      prusa-slicer
  
@@ -293,24 +297,30 @@
   # Starship
   programs.starship.enable = true;
   programs.starship.settings = {
-  add_newline = false;
-     format = "$username$nix_shell$directory$character";
+     add_newline = false;
+     format = "$username$hostname$nix_shell $directory$character ";
      username = {
-        format = "\[[$user](white bold)\]";
+        format = "[\\[$user](white bold)";
+        disabled = false;
+        show_always = true;
+     };
+     hostname = {
+        ssh_only = false;
+        format = "[@$hostname\\]](white bold)";
      };
      directory = {
-       read_only = " :x";
+       read_only = " x";
        truncation_length = 0;
        style = "bold red";
      };
      character = {
-       success_symbol = "[>](white bold)";
-       error_symbol = "[>](red bold)";
+       success_symbol = "[\\$](white bold)";
+       error_symbol = "[\\$](red bold)";
      };
      nix_shell = {
-       symbol = "❄(boldw white) ";
+       symbol = "❄(bold white)";
        style = "bold blue";
-       format = "[$symbol$state( \($name\))]($style) ";
+       format = "[$symbol$state( \($name\))]($style)";
      };
   };
 
